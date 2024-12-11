@@ -56,24 +56,33 @@ dataColl.addEventListener('click',()=>{
     addPayCardButton.style.display='none';
     dataColl.style.display='none';
  
-   const transactions= solution();
-   resTable.style.display='block';
- 
-
-
-   transactions.forEach((transaction, index) => {
-       // Clone the row template
-       const newRow = resRowTemp.cloneNode(true);      
-       newRow.style.display = 'grid'; // Make the cloned row visible
-       newRow.classList.add('transaction-row'); // Add a class for easy cleanup later
-       newRow.querySelector('#from0').innerText = transaction.from;
-       newRow.querySelector('#to0').innerText = transaction.to;
-       newRow.querySelector('#money0').innerText = transaction.money.toFixed(2); // Display amount with 2 decimals
-
-       // Append the row to the results table
-       resTable.appendChild(newRow);
-   });
-   console.log("results shown");
+    const transactions = solution();
+    resTable.style.display = 'block';
+    
+    // Check if transactions is empty
+    if (transactions.length === 0) {
+        // Create a new row with the message and display it
+        const messageRow = document.createElement('div');
+        messageRow.classList.add('transaction-row');
+        messageRow.style.display = 'grid'; // Ensure it's visible
+        messageRow.innerText = "No transactions are required, chill! 😎"; // Add the cool emoji here
+        resTable.appendChild(messageRow);
+    } else {
+        // Loop through the transactions and display each as a row
+        transactions.forEach((transaction, index) => {
+            // Clone the row template
+            const newRow = resRowTemp.cloneNode(true);      
+            newRow.style.display = 'grid'; // Make the cloned row visible
+            newRow.classList.add('transaction-row'); // Add a class for easy cleanup later
+            newRow.querySelector('#from0').innerText = transaction.from;
+            newRow.querySelector('#to0').innerText = transaction.to;
+            newRow.querySelector('#money0').innerText = transaction.money.toFixed(2); // Display amount with 2 decimals
+    
+            // Append the row to the results table
+            resTable.appendChild(newRow);
+        });
+    }
+    
 
 });
 
