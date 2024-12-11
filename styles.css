@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+header{
+    background-color: #2c3237;
+    color: #ecf3f3;
+    font-size: xx-large;
+    font-weight: 600;
+}
+
+
+.icon-wrapper {
+    display: inline-block;
+    background-color: #d3d3d3; /* Light gray background */
+    padding: 10px; /* Add padding around the SVG */
+    border-radius: 20px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+  }
+
+  .icon-wrapper:hover {
+    background-color: #b0b0b0; /* Slightly darker gray on hover */
+  }
