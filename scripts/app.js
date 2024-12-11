@@ -17,9 +17,9 @@ let pay=[];
 let amount=[];
 let forr=[];
 
-dataColl.addEventListener('click',()=>{
-
+dataColl.addEventListener('click', () => {
     const allPayCards = document.querySelectorAll('#paycardlist > [id^="paycard"]');
+    let isValid = true; // Flag to check if any field is empty
 
     allPayCards.forEach((payCard) => {
         // Collect amount
@@ -28,26 +28,34 @@ dataColl.addEventListener('click',()=>{
             amount.push(Number(amountInput.value));
         } else {
             amount.push(null); // If no amount is entered, push null
+            isValid = false;  // Set flag to false if amount is empty
         }
 
         // Collect selected payers
         const payerSelect = payCard.querySelector('#payers');
-        if (payerSelect) {
+        if (payerSelect && payerSelect.selectedOptions.length > 0) {
             const selectedPayers = Array.from(payerSelect.selectedOptions).map(option => option.value);
             pay.push(selectedPayers);
         } else {
             pay.push([]); // Push an empty array if no payers are selected
+            isValid = false;  // Set flag to false if no payer is selected
         }
 
         // Collect selected paid-for
         const paidForSelect = payCard.querySelector('#paidfor');
-        if (paidForSelect) {
+        if (paidForSelect && paidForSelect.selectedOptions.length > 0) {
             const selectedPaidFor = Array.from(paidForSelect.selectedOptions).map(option => option.value);
             forr.push(selectedPaidFor);
         } else {
             forr.push([]); // Push an empty array if no paid-for names are selected
+            isValid = false;  // Set flag to false if no paid-for is selected
         }
     });
+
+    if (!isValid) {
+        alert("Please fill in all fields correctly!");  // Show an alert if any required field is empty
+        return; // Exit the function and prevent proceeding further
+    }
 
     console.log("Amounts:", amount);
     console.log("Payers:", pay);
@@ -166,13 +174,22 @@ takeNames.addEventListener('click',()=>{
     // Get all input fields in the form
     const inputs = personForm.querySelectorAll('input');
   
+    let isValid = true; // Flag to check if any input is empty
+
     // Iterate over the inputs and store non-empty values
     inputs.forEach(input => {
-      const name = input.value.trim();
-      if (name) {
-        namesArray.push(name);  // Add non-empty name to the array
-      }
+        const name = input.value.trim();
+        if (name) {
+            namesArray.push(name);  // Add non-empty name to the array
+        } else {
+            isValid = false;  // Set flag to false if there's an empty input
+        }
     });
+
+    if (!isValid) {
+        alert("Please fill in all name fields!");  // Show an alert if any input is empty
+        return; // Exit the function and prevent proceeding further
+    }
   
     console.log('Names Array:', namesArray);
     payCardList.style.display = 'block';
