@@ -12,6 +12,7 @@ function minimizeTransactions(scores) {
     const transactions = []; // Array to store transaction details
 
     function recurse(positives, negatives) {
+        // Base case: If no positives or negatives left, return 0
         if (positives.length === 0 && negatives.length === 0) return 0;
 
         // Generate a unique key for the current state
@@ -21,8 +22,11 @@ function minimizeTransactions(scores) {
         const negative = negatives[0];
         let minTransactions = Infinity;
 
+        // Ensure the positives array is not empty before iterating
+        if (positives.length === 0) return 0;
+
         positives.forEach((positive, index) => {
-            const newPositives = positives.slice();
+            const newPositives = [...positives]; // Shallow copy of the array
             const newNegatives = negatives.slice(1); // Remove the first negative
 
             const transactionMoney = Math.min(positive.money, -negative.money);
@@ -62,9 +66,6 @@ function minimizeTransactions(scores) {
     return transactions; 
 }
 
-
-
-
 function solution() {
     // Create a map-like structure to store names and scores
     let scores = {};
@@ -78,14 +79,13 @@ function solution() {
 
     // Process the collected data (amount, pay, forr)
     amount.forEach((amt, index) => {
-
-
         // Divide the amount equally among those it is paid for
         const splitAmount = amt / forr[index].length;
-        const paySpilt=amt/pay[index].length;
+        const paySplit = amt / pay[index].length;
+        
         // Deduct the amount from payers' scores
         pay[index].forEach(payer => {
-            scores[payer] += paySpilt; // Deduct the total amount paid by the payer
+            scores[payer] += paySplit; // Deduct the total amount paid by the payer
         });
 
         // Add the split amount to the scores of those it was paid for
@@ -96,12 +96,7 @@ function solution() {
 
     console.log("Final Scores:", scores);
     // Reduce transactions
-const transactions = minimizeTransactions(scores);
-console.log("Transactions:", transactions);
-return transactions;
-
+    const transactions = minimizeTransactions(scores);
+    console.log("Transactions:", transactions);
+    return transactions;
 }
-
-
-
-
