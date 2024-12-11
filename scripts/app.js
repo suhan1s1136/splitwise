@@ -58,7 +58,7 @@ dataColl.addEventListener('click',()=>{
  
    const transactions= solution();
    resTable.style.display='block';
-   newCalc.style.display='block';
+ 
 
 
    transactions.forEach((transaction, index) => {
